@@ -15,5 +15,8 @@ jobs:
 
       - uses: extractions/setup-just@v4
 
+      - name: Install development tools
+        run: npm ci
+
       - name: Check
         run: just check
