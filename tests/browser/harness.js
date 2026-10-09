@@ -23,7 +23,7 @@ function fixtureHtml(pageScript) {
 </body></html>`;
 }
 
-function startServer(pageScript) {
+function startServer(pageScript, { extraRoutes = {} } = {}) {
   const reports = [];
   const waiters = [];
   const server = http.createServer((request, response) => {
@@ -38,6 +38,11 @@ function startServer(pageScript) {
     if (url.pathname === '/search') {
       response.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
       response.end(fixtureHtml(pageScript));
+      return;
+    }
+    if (extraRoutes[url.pathname]) {
+      response.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+      response.end(extraRoutes[url.pathname]);
       return;
     }
     response.writeHead(404).end();
@@ -82,11 +87,12 @@ function firefoxVersion() {
 
 // Starts headless Firefox with `sourceDir` loaded as a temporary add-on and
 // returns a function that stops it.
-function launchFirefox(sourceDir, startUrl) {
+function launchFirefox(sourceDir, startUrl, { preferences = [] } = {}) {
   const child = spawn(
     webExt,
     [
       'run',
+      ...preferences.map((preference) => `--pref=${preference}`),
       '--source-dir', sourceDir,
       '--firefox', firefoxBinary(),
       '--arg=-headless',
