@@ -1,0 +1,8 @@
+{
+  "name": "google-images-for-you-hider",
+  "private": true,
+  "description": "Development tooling only. The extension has no runtime dependencies.",
+  "devDependencies": {
+    "web-ext": "10.7.0"
+  }
+}
