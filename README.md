@@ -4,6 +4,10 @@ A small Firefox add-on that hides Google Images’ personalized landing gallery
 and its **More results** section while keeping the search field and ordinary
 image search results available.
 
+Install from [Mozilla Add-ons](https://addons.mozilla.org/en-US/firefox/addon/hide-for-you-on-google-images/)
+in Firefox 147 or later. Once published, the AMO listing provides installation
+and automatic updates.
+
 ## Scope
 
 The content script runs on Google `/search` pages for `google.com`,
@@ -39,7 +43,7 @@ just build
 ```
 
 `just check` checks syntax, lints the packaged files with `web-ext lint`
-(self-hosted mode, warnings as errors), and runs the unit tests.
+(public AMO mode, warnings as errors), and runs the unit tests.
 
 Browser tests load the extension in headless Firefox through `web-ext` and use
 a local fixture server. Set `FIREFOX_BINARY` to test a specific Firefox build.
@@ -60,11 +64,42 @@ restarts.
 
 ## Distribution
 
-Firefox release builds require Mozilla-signed extensions. Submit the XPI to
-AMO as an unlisted add-on for personal or limited distribution, or list it on
-AMO for public installation and automatic updates. An unlisted self-hosted
-release needs an update manifest for automatic updates; otherwise, install each
-new signed XPI manually.
+The release target is a public listing on Mozilla Add-ons (AMO), which provides
+installation and automatic updates. Firefox release builds require
+Mozilla-signed extensions. Signing and publication are manual; GitHub Actions
+runs checks but does not upload releases.
+
+Before each submission, increment `version` in `manifest.json`, run
+`just check`, then run `just build`. Upload the versioned XPI from `dist/`.
+The archive contains only `manifest.json`, `content.js`, and `content.css`.
+Development dependencies and browser fixtures are not included.
+
+For the first submission:
+
+1. Sign in to the [AMO Developer Hub](https://addons.mozilla.org/developers/),
+   select **Submit a New Add-on**, and choose **On this site**.
+2. Upload the XPI and select Firefox for desktop. The minimum version is 147.
+3. Select **No** when asked whether a separate source-code submission is
+   required. The packaged code is readable and is not compiled or minified.
+4. Complete the listing with the name and summary from `manifest.json`, the
+   scope described above, the repository's CC0 license, and the GitHub issues
+   page as the support website. Declare that the extension collects no data.
+5. Submit the version and wait for Mozilla signing and publication. Remove
+   any temporary installation, then install from the published AMO page.
+
+Suggested reviewer notes:
+
+> This extension hides the Google Images For You gallery and pagination only
+> on `/search?udm=49&udf=257` without a `q` parameter. Ordinary searches,
+> including an empty `q=`, remain visible. It runs on google.com,
+> www.google.com, and images.google.com, and requires Firefox 147 for Navigation
+> API events. It contains only readable JavaScript, CSS, and a manifest, with
+> no compilation, remote code, telemetry, storage, or network requests.
+> The For You gallery may depend on the user's Google account and region.
+
+For later submissions, upload a higher-version XPI under the existing AMO
+listing and keep the same add-on ID. Firefox delivers published updates.
+See Mozilla's [submission guide](https://extensionworkshop.com/documentation/publish/submitting-an-add-on/).
 
 ## Manual behavior check
 

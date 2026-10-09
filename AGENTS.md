@@ -18,5 +18,5 @@ dependencies.
 - Keep the extension self-contained. It must not collect or transmit browsing
   data, load remote code, or add permissions unrelated to this behavior.
 - Update the manifest version for each release submission.
-- There is no release workflow yet. AMO signing and publication remain manual
-  until a distribution channel and credentials are configured.
+- The distribution target is a public AMO listing. There is no automated
+  release workflow; AMO signing and publication remain manual.
