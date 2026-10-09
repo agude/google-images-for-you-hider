@@ -6,7 +6,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "hide-google-images-for-you@example.invalid",
-      "strict_min_version": "109.0",
+      "strict_min_version": "147.0",
       "data_collection_permissions": {
         "required": ["none"]
       }
@@ -19,6 +19,7 @@
         "https://google.com/search*",
         "https://images.google.com/search*"
       ],
+      "css": ["content.css"],
       "js": ["content.js"],
       "run_at": "document_start"
     }

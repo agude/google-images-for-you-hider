@@ -19,4 +19,4 @@ check: lint test
 version := `node -p "require('./manifest.json').version"`
 build:
     mkdir -p dist
-    zip -q -j -FS "dist/google-images-for-you-hider-{{version}}.xpi" manifest.json content.js
+    zip -q -j -FS "dist/google-images-for-you-hider-{{version}}.xpi" manifest.json content.js content.css

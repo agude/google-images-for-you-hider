@@ -1,0 +1,4 @@
+html[data-hide-images-for-you] #center_col #rso,
+html[data-hide-images-for-you] #center_col #botstuff {
+  display: none !important;
+}
