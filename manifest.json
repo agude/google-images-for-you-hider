@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Hide Google Images For You",
+  "version": "1.1.1",
+  "description": "Hide the personalized Google Images landing gallery while keeping image search results.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "hide-google-images-for-you@example.invalid",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.google.com/search*",
+        "https://google.com/search*",
+        "https://images.google.com/search*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

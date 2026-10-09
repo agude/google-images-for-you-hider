@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  workflow_call:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - uses: extractions/setup-just@v4
+
+      - name: Check
+        run: just check
